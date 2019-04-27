@@ -1,0 +1,13 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: map-service
+
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka
+
+say:
+  hello: "Hi I'm Map-Service"

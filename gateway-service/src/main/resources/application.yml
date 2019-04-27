@@ -1,0 +1,31 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: uaa
+          uri: lb://uaa-service
+          predicates:
+            - Path=/uaa/**
+          filters:
+            - StripPrefix=1
+        - id: maps
+          uri: lb://map-service
+          predicates:
+            - Path=/api/v1/maps/**
+          filters:
+            - StripPrefix=2
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8090
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka
+
+
