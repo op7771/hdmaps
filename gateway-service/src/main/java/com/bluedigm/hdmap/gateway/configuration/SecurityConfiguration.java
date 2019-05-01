@@ -11,11 +11,6 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 public class SecurityConfiguration {
 
     @Bean
-    CustomJwtAuthenticationConverter converter() {
-        return new CustomJwtAuthenticationConverter();
-    }
-
-    @Bean
     public SecurityWebFilterChain springSecurityFilterChain(final ServerHttpSecurity http) {
         http
                 .csrf().disable()
@@ -23,12 +18,13 @@ public class SecurityConfiguration {
                 .pathMatchers("/uaa/**").permitAll()
                 .anyExchange().authenticated()
                 .and()
-                .httpBasic().disable()
                 .oauth2ResourceServer()
                 .jwt()
+                .jwkSetUri("http://localhost:8090/oauth/rsa/keys")
 //                    .jwtAuthenticationConverter(converter())
         ;
 
         return http.build();
     }
+
 }
