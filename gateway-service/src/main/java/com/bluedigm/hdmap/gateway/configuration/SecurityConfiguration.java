@@ -15,7 +15,7 @@ public class SecurityConfiguration {
         http
                 .csrf().disable()
                 .authorizeExchange()
-                .pathMatchers("/uaa/**").permitAll()
+                .pathMatchers("/uaa/**").permitAll() // auth 로 변경.
                 .anyExchange().authenticated()
                 .and()
                 .oauth2ResourceServer()
